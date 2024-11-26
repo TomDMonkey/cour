@@ -1,0 +1,38 @@
+
+
+#include <stdlib.h>
+#include <stdio.h>
+
+
+
+struct toto{
+    int a;
+    float b;
+};
+
+struct titi{
+    double x;
+    struct toto y;
+};
+struct toto a;
+struct titi c;
+
+
+int main(){
+
+a.a=17;
+a.a+=2;
+a.b=1.0;
+
+a.b=a.a+a.b;
+c.x=c.y.b+1;
+
+//faire un pointeur sur la structure
+struct titi *d;
+d=&c;
+
+//acces au champ 
+(*d).x=4.0;// maniere horrible de le faire
+d->x+=1.0; // maniere normal
+
+}

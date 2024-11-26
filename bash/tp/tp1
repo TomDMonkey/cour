@@ -1,0 +1,100 @@
+#! /bin/bash
+
+echo "[ TP : bash ]"
+
+# --------------PRÉLIMINAIRE--------------- 
+
+# écrire un script qui crée un fchier nommé d'après vos initiales et contenant le texte Hello !
+function question1() {
+    initiales="RT" 
+    touch "${initiales}.txt"
+    echo "Hello !" > "${initiales}.txt"
+    echo "Le fichier ${initiales}.txt a été créé avec le texte 'Hello !'"
+}
+
+#écrire un script qui affiche le nombre d'arguments et les arguments passés au script (un argument par ligne)
+function question2 (){
+    echo "Nombre d'arguments : $#"
+    echo "Les arguments sont :"
+    for arg in "$@"
+    do
+        echo "$arg"
+    done
+}
+
+# écrire un script qui crée un fichier nommé d'après le nom donné en premier argument ; ce fichier contiendra le texte passé dans le deuxième argument.
+# Ce script devra aussi gérer le manque d'argument en indiquant à l'utilisateur le bon usage de la commande.
+function question3() {
+    # exemple pour passer les arguements : ./tps nom_de_fichier "text à integrer"
+    echo "Veuillez entrer le nom du fichier en premier, puis le texte."
+    echo "Nombre d'arguments : $#"
+    
+    if [[ -n $1 && -n $2 ]]; then  
+        touch "${1}.txt"           
+        echo "$2" > "${1}.txt"  
+        echo "Le fichier ${1}.txt a été créé avec le texte : '$2'"
+    else
+        echo "Erreur : Vous devez fournir un nom de fichier et du texte."
+    fi
+}
+
+# écrire un script qui crée 10 fichiers nommés d'après le nom donné en argument et sufixés par un indice. Comme précédemment, ces fichiers contiendront le texte passé en deuxième
+# argument et un compteur correspondant à l'indice du fichier
+function question4() {
+    echo "nom de fichier et text pls"
+    if [[ -n $1 && -n $2 ]]; then  
+    var=0
+    for i in {1..10}
+        do 
+        touch "${1}${var}.txt"   
+        echo "$2" > "${1}${var}.txt"  
+        var=$(($var +1))
+      done
+        echo "fichiers ont été créés avec succès."
+    else
+        echo "Erreur : Veuillez fournir un nom de fichier de base et un texte."
+    fi
+
+}
+
+# question1
+# question2 "$@" 
+# question3 "$@" 
+# question4 "$@" 
+
+
+# --------------TRAITEMENT DE FICHIER TEXTE---------------
+
+
+function traitement() {
+    if [[ $# -eq 2 && -f $1 && ! -d $1 && $2 =~ ^[0-9]+$ ]]; then
+        while read -r line; do 
+            if [[ -n "$line" ]]; then 
+                num=0
+                n=$2 
+                
+                for mot in $line; do 
+                    num=$(expr $num + 1) 
+
+                    if [[ $num -eq $n ]]; then
+                        echo "$mot"
+                        break
+                    fi
+                done
+            fi
+        done < "$1"
+    else 
+        echo "Erreur : Veuillez fournir un fichier valide et un numéro de mot valide."
+    fi
+}
+
+# traitement "$@"
+
+
+# --------------DUPLICATION DE FLUX---------------
+
+function duplication(){
+    
+
+
+}
